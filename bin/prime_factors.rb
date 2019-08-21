@@ -13,7 +13,13 @@ def prime?(number)
 end
 
 def minimal_divisible_factor(number)
-  (2..number).detect { |n| prime?(n) && number % n == 0 }
+  return nil if number == 1
+
+  (2..Integer.sqrt(number)).each do |n|
+    return n if number % n == 0 && prime?(n)
+  end
+
+  number
 end
 
 def prime_factors(number)

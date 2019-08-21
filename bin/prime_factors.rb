@@ -2,19 +2,18 @@
 require 'optparse'
 
 def prime?(number)
-  (2..number-1).each do |n|
-    return false if (number % n).zero?
+  return true if @calculated_primes.has_key?(number)
+
+  (2..Integer.sqrt(number)).each do |n|
+    return false if number % n == 0
   end
 
+  @calculated_primes[number] = true
   true
 end
 
-def primes_until(number)
-  (2..number).select { |n| prime?(n) }
-end
-
 def minimal_divisible_factor(number)
-  primes_until(number).detect { |n| (number % n).zero? }
+  (2..number).detect { |n| prime?(n) && number % n == 0 }
 end
 
 def prime_factors(number)
@@ -33,6 +32,7 @@ def prime_factors(number)
 end
 
 def main(number)
+  @calculated_primes = {}
   prime_factors(number).join(', ')
 end
 

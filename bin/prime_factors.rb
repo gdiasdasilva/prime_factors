@@ -34,9 +34,8 @@ def prime_factors(number)
 end
 
 def main(number)
-  # TODO: validate arguments
-  prime_factors(number).join(', ')
+  abort 'Error. Parameter --number should be a valid positive integer.' unless number.to_i > 0
+  puts prime_factors(number.to_i).join(', ')
 end
 
-puts main(ARGV[0].to_i)
-
+main(ARGV[0])

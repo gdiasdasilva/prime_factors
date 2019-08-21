@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'optparse'
 
 def prime?(number)
   (2..number-1).each do |n|
@@ -9,9 +10,7 @@ def prime?(number)
 end
 
 def primes_until(number)
-  @primes ||= begin
-    (2..number).select { |n| prime?(n) }
-  end
+  (2..number).select { |n| prime?(n) }
 end
 
 def minimal_divisible_factor(number)
@@ -34,8 +33,15 @@ def prime_factors(number)
 end
 
 def main(number)
-  abort 'Error. Parameter --number should be a valid positive integer.' unless number.to_i > 0
-  puts prime_factors(number.to_i).join(', ')
+  prime_factors(number).join(', ')
 end
 
-main(ARGV[0])
+OptionParser.new do |parser|
+  parser.on("--number NUMBER", Integer) do |arg_number|
+    if arg_number > 1
+      puts main(arg_number)
+    else
+      puts 'Error. Parameter --number should be a valid positive integer bigger than 1.'
+    end
+  end
+end.parse!

@@ -70,7 +70,9 @@ describe 'prime_factors' do
     end
 
     context 'when number is invalid' do
-
+      it 'should return nothing' do
+        expect(main(0)).to eq ''
+      end
     end
   end
 

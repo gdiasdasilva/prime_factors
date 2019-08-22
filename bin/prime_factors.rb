@@ -1,51 +1,11 @@
 #!/usr/bin/env ruby
 require 'optparse'
-
-def prime?(number)
-  return true if @calculated_primes.has_key?(number)
-
-  (2..Integer.sqrt(number)).each do |n|
-    return false if number % n == 0
-  end
-
-  @calculated_primes[number] = true
-  true
-end
-
-def minimal_divisible_factor(number)
-  return nil if number == 1
-
-  (2..Integer.sqrt(number)).each do |n|
-    return n if number % n == 0 && prime?(n)
-  end
-
-  number
-end
-
-def prime_factors(number)
-  factors = []
-  processing_number = number
-
-  while true do
-    current_factor = minimal_divisible_factor(processing_number)
-    break if current_factor.nil?
-
-    factors << current_factor
-    processing_number /= current_factor
-  end
-
-  factors
-end
-
-def main(number)
-  @calculated_primes = {}
-  prime_factors(number).join(', ')
-end
+require_relative './prime_factorization'
 
 OptionParser.new do |parser|
   parser.on("--number NUMBER", Integer) do |arg_number|
     if arg_number > 1
-      puts main(arg_number)
+      puts PrimeFactorization.new(arg_number).prime_factors
     else
       puts 'Error. Parameter --number should be a valid positive integer bigger than 1.'
     end

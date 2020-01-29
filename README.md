@@ -2,7 +2,9 @@
 
 Ruby script to calculate the [prime factors](https://www.mathsisfun.com/prime-factorization.html) of any integer number. 
 
-Includes basic specs.
+Dependencies:
+- rspec
+- OptionParser
 
 ## :rocket: Running it 
 
